@@ -1,0 +1,255 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ocean Clicker</title>
+    <!--
+        Fontes carregadas pelo style.css via @import.
+        Não é necessário declarar aqui novamente.
+    -->
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<!--
+    .pagina-clicker → modificador de contexto no CSS unificado.
+    Todas as regras específicas do clicker usam "body.pagina-clicker X"
+    para não vazar para as outras páginas e vice-versa.
+-->
+
+<body class="pagina-clicker">
+
+    <!-- ════════════════════════════════════════════════════
+         HEADER
+         IDs renomeados de #header → #clicker-header etc.
+         para não conflitar com um possível #header genérico
+         em outras páginas do projeto.
+    ════════════════════════════════════════════════════ -->
+    <header id="clicker-header">
+        <div id="clicker-header-esquerda">
+            <h1 id="clicker-titulo"><i class="fa-solid fa-water" style="margin-right: 3px;"></i> Ocean Clicker</h1>
+            <div id="meta-vitoria">Meta: <span id="texto-meta">1.000.000 pts</span></div>
+        </div>
+        <div id="clicker-header-direita">
+            <span id="contador-cliques" style="display:none">
+                🖱 <span id="textoCliquesTotal">0</span> cliques
+            </span>
+            <span id="relogio"></span>
+        </div>
+    </header>
+
+    <!-- ════════════════════════════════════════════════════
+         LAYOUT PRINCIPAL
+    ════════════════════════════════════════════════════ -->
+    <div id="jogo">
+
+        <!-- Camadas de fundo animadas (ativadas pelo JS via .ativo) -->
+        <div id="fish-container"></div>
+        <div id="bubbles-container"></div>
+        <div id="particles-container"></div>
+
+        <!-- ── Área do botão e placar ── -->
+        <section id="secao-clicker">
+
+            <!-- Texto de boas-vindas com efeito onda (JS gera os <span>) -->
+            <div id="texto-inicio">
+                <p id="titulo-onda">Clique para começar a construir o oceano</p>
+            </div>
+
+            <button id="btn-apertar"></button>
+
+            <div class="info-clicker">
+                <div class="valor" id="textoContador">0</div>
+                <div class="rotulo">pontos</div>
+            </div>
+
+            <div class="info-clicker">
+                <div class="valor" id="textoClick" style="font-size:18px;">1.00</div>
+                <div class="rotulo">click power</div>
+            </div>
+
+            <div class="info-clicker">
+                <div id="barra-progresso-container">
+                    <div id="barra-progresso-fill"></div>
+                </div>
+                <div id="texto-proximo-upgrade">Próximo upgrade: —</div>
+            </div>
+
+            <!-- Corais (reservado para uso futuro do upgrade vida marinha) -->
+            <div id="corais-container"></div>
+
+        </section>
+
+        <!-- ── Painel de upgrades ── -->
+        <section id="secao-compra">
+
+            <!-- Abas -->
+            <div id="abas">
+                <button class="aba-btn ativa" onclick="trocarAba('melhorias')">Melhorias</button>
+                <button class="aba-btn" onclick="trocarAba('passivas')">Passivas</button>
+                <button class="aba-btn" onclick="trocarAba('design')">Design</button>
+            </div>
+
+            <!-- ── MELHORIAS ── -->
+            <div id="painel-melhorias" class="painel-aba ativa">
+                <p class="aviso-vazio" id="aviso-melhorias">Necessário maior quantidade de cliques.</p>
+
+                <div class="upgrade-card" id="card-mais1" onclick="comprar('mais1')">
+                    <div class="nome">+1 Click power</div>
+                    <div class="descricao">Aumenta o poder de clique em 1</div>
+                    <div class="preco" id="preco-mais1">Custo: 10 pts</div>
+                </div>
+                <div class="upgrade-card" id="card-mais5" onclick="comprar('mais5')">
+                    <div class="nome">+5 Click power</div>
+                    <div class="descricao">Um cardume pequeno se junta a você</div>
+                    <div class="preco" id="preco-mais5">Custo: 120 pts</div>
+                </div>
+                <div class="upgrade-card" id="card-mult11" onclick="comprar('mult11')">
+                    <div class="nome">x1.1 Click power</div>
+                    <div class="descricao">Multiplica o poder de clique por 1.1</div>
+                    <div class="preco" id="preco-mult11">Custo: 600 pts</div>
+                </div>
+                <div class="upgrade-card" id="card-mais20" onclick="comprar('mais20')">
+                    <div class="nome">+20 Click power</div>
+                    <div class="descricao">Um cardume enorme chega de uma vez</div>
+                    <div class="preco" id="preco-mais20">Custo: 3.000 pts</div>
+                </div>
+                <div class="upgrade-card" id="card-cardumegrande" onclick="comprar('cardumegrande')">
+                    <div class="nome">+50 Click power</div>
+                    <div class="descricao">Cardume grande — força bruta</div>
+                    <div class="preco" id="preco-cardumegrande">Custo: 10.000 pts</div>
+                </div>
+                <div class="upgrade-card" id="card-mult15" onclick="comprar('mult15')">
+                    <div class="nome">x1.5 Click power</div>
+                    <div class="descricao">Uma corrente quente impulsiona o cardume</div>
+                    <div class="preco" id="preco-mult15">Custo: 40.000 pts</div>
+                </div>
+                <div class="upgrade-card" id="card-mais100" onclick="comprar('mais100')">
+                    <div class="nome">+100 Click power</div>
+                    <div class="descricao">Migração de baleias — poder absurdo</div>
+                    <div class="preco" id="preco-mais100">Custo: 150.000 pts</div>
+                </div>
+            </div>
+
+            <!-- ── PASSIVAS ── -->
+            <div id="painel-passivas" class="painel-aba">
+                <p class="aviso-vazio" id="aviso-passivas">Necessário maior quantidade de cliques.</p>
+
+                <div class="upgrade-card" id="card-auto1" onclick="comprar('auto1')">
+                    <div class="nome">Auto-clicker lento</div>
+                    <div class="descricao">Ganha 1 ponto a cada 3 segundos</div>
+                    <div class="preco" id="preco-auto1">Custo: 100 pts</div>
+                </div>
+                <div class="upgrade-card" id="card-rede" onclick="comprar('rede')">
+                    <div class="nome">Rede de pesca</div>
+                    <div class="descricao">20% de chance de cada clique valer o dobro</div>
+                    <div class="preco" id="preco-rede">Custo: 800 pts</div>
+                </div>
+                <div class="upgrade-card" id="card-auto2" onclick="comprar('auto2')">
+                    <div class="nome">Auto-clicker rápido</div>
+                    <div class="descricao">Ganha click power a cada 1 segundo</div>
+                    <div class="preco" id="preco-auto2">Custo: 3.000 pts</div>
+                </div>
+                <div class="upgrade-card" id="card-dobro" onclick="comprar('dobro')">
+                    <div class="nome">Dobro Click Power</div>
+                    <div class="descricao">Dobra todo o seu poder de clique</div>
+                    <div class="preco" id="preco-dobro">Custo: 8.000 pts</div>
+                </div>
+                <div class="upgrade-card" id="card-bolhadourada" onclick="comprar('bolhadourada')">
+                    <div class="nome">Bolha dourada</div>
+                    <div class="descricao">Bolhas douradas aparecem na tela com bônus surpresa</div>
+                    <div class="preco" id="preco-bolhadourada">Custo: 20.000 pts</div>
+                </div>
+                <div class="upgrade-card" id="card-corrente" onclick="comprar('corrente')">
+                    <div class="nome">Corrente marinha</div>
+                    <div class="descricao">Ganha seu click power em pontos a cada 5 segundos</div>
+                    <div class="preco" id="preco-corrente">Custo: 50.000 pts</div>
+                </div>
+                <div class="upgrade-card" id="card-tempestade" onclick="comprar('tempestade')">
+                    <div class="nome"> Tempestade marinha</div>
+                    <div class="descricao">A cada 30s ganha 5x seu click power de uma vez</div>
+                    <div class="preco" id="preco-tempestade">Custo: 150.000 pts</div>
+                </div>
+                <div class="upgrade-card" id="card-baleia" onclick="comprar('baleia')">
+                    <div class="nome"> Baleia jubarte</div>
+                    <div class="descricao">Ganha 2x click power por segundo automaticamente</div>
+                    <div class="preco" id="preco-baleia">Custo: 400.000 pts</div>
+                </div>
+            </div>
+
+            <!-- ── DESIGN ── -->
+            <div id="painel-design" class="painel-aba">
+                <p class="aviso-vazio" id="aviso-design">Necessário maior quantidade de cliques.</p>
+
+                <div class="upgrade-card" id="card-particulas" onclick="comprar('particulas')">
+                    <div class="nome"> Partículas de bolha</div>
+                    <div class="descricao">Aparece um +X flutuando ao clicar</div>
+                    <div class="preco" id="preco-particulas">Custo: 30 pts</div>
+                </div>
+                <div class="upgrade-card" id="card-somclick" onclick="comprar('somclick')">
+                    <div class="nome"> Som ao clicar</div>
+                    <div class="descricao">Um pop suave a cada clique</div>
+                    <div class="preco" id="preco-somclick">Custo: 50 pts</div>
+                </div>
+                <div class="upgrade-card" id="card-fundoazul" onclick="comprar('fundoazul')">
+                    <div class="nome"> Fundo oceano</div>
+                    <div class="descricao">Transforma o fundo em um oceano profundo</div>
+                    <div class="preco" id="preco-fundoazul">Custo: 150 pts</div>
+                </div>
+                <div class="upgrade-card" id="card-relogio" onclick="comprar('relogio')">
+                    <div class="nome">Mais bolhas! MAIS!</div>
+                    <div class="descricao">E um relógio no topo</div>
+                    <div class="preco" id="preco-relogio">Custo: 300 pts</div>
+                </div>
+                <div class="upgrade-card" id="card-musica" onclick="comprar('musica')">
+                    <div class="nome"> Música ambiente</div>
+                    <div class="descricao">Sons do oceano de fundo</div>
+                    <div class="preco" id="preco-musica">Custo: 800 pts</div>
+                </div>
+                <div class="upgrade-card" id="card-animacaoclique" onclick="comprar('animacaoclique')">
+                    <div class="nome"> Animação de clique</div>
+                    <div class="descricao">O botão reage ao ser clicado</div>
+                    <div class="preco" id="preco-animacaoclique">Custo: 1.000 pts</div>
+                </div>
+                <div class="upgrade-card" id="card-tituloDinamico" onclick="comprar('tituloDinamico')">
+                    <div class="nome"> Título dinâmico</div>
+                    <div class="descricao">Seus pontos aparecem na aba do navegador</div>
+                    <div class="preco" id="preco-tituloDinamico">Custo: 5.000 pts</div>
+                </div>
+                <div class="upgrade-card" id="card-vidamarinha" onclick="comprar('vidamarinha')">
+                    <div class="nome"> Vida marinha</div>
+                    <div class="descricao">Peixes nadam no fundo e corais crescem na tela</div>
+                    <div class="preco" id="preco-vidamarinha">Custo: 100.000 pts</div>
+                </div>
+            </div>
+
+            <button id="btn-resetar" onclick="resetar()">Resetar jogo</button>
+
+        </section>
+    </div>
+
+    <!-- Bolha dourada interativa -->
+    <div id="bolha-dourada" onclick="clicarBolhaDourada()">🫧</div>
+
+    <!-- Container de pop-ups de notificação -->
+    <div id="container-popups"></div>
+
+    <!-- Áudios -->
+    <audio id="som-bolhas" loop>
+        <source src="audio/desifreemusic-ocean-wave-loops-377890.mp3" type="audio/mpeg">
+    </audio>
+    <audio id="audio-clique">
+        <source src="audio/universfield-bubble-pop-06-351337.mp3" type="audio/mpeg">
+    </audio>
+
+    <!--
+        script.js carregado por último — garante que todos os
+        elementos do DOM já existem quando o JS executa.
+    -->
+    <script src="script.js"></script>
+    <script src="https://kit.fontawesome.com/029c74db66.js" crossorigin="anonymous"></script>
+
+</body>
+
+</html>

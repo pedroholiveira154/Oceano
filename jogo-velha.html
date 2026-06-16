@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Jogo da Velha — Oceano</title>
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@700;900&family=Nunito:wght@400;600;700&display=swap"
+    rel="stylesheet" />
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet"
+    integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous" />
+  <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+  <div id="particles-container"></div>
+  <div id="bubbles-container"></div>
+  <div id="fish-container"></div>
+
+  <nav class="navbar navbar-expand-md navbar-dark position-fixed top-0 w-100" id="navbar"
+    style="background:rgba(3,4,94,0.85)!important;backdrop-filter:blur(10px);border-bottom:1px solid rgba(144,224,239,0.2);">
+    <div class="container">
+      <a class="nav-logo" href="index.html"><i class="fa-solid fa-water" style="margin-right: 3px;"></i>OCEANO</a>
+      <button class="navbar-toggler border-0" type="button" data-bs-toggle="collapse" data-bs-target="#navMenu"
+        aria-controls="navMenu" aria-expanded="false">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse justify-content-end" id="navMenu">
+        <ul class="navbar-nav gap-3">
+          <li class="nav-item">
+            <a class="nav-link nav-link-custom" href="index.html">← Voltar para Home</a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+
+  <div class="pagina-velha">
+
+    <h1 class="titulo-velha">⚓ Jogo da Velha</h1>
+    <p class="subtitulo-velha">Você vs a Orca </p>
+
+    <div class="placar-velha">
+      <div class="placar-item-velha">
+        <div class="label"> Você</div>
+        <div class="valor" id="pts-jogador">0</div>
+      </div>
+      <div class="placar-item-velha">
+        <div class="label">Empates</div>
+        <div class="valor" id="pts-empate">0</div>
+      </div>
+      <div class="placar-item-velha">
+        <div class="label"> Orca</div>
+        <div class="valor" id="pts-orca">0</div>
+      </div>
+    </div>
+
+    <div class="modo-wrap">
+      <label>Dificuldade:</label>
+      <select id="dificuldade">
+        <option value="facil"> Fácil</option>
+        <option value="medio" selected> Médio</option>
+        <option value="dificil"> Difícil</option>
+      </select>
+    </div>
+
+    <div id="velha-status">Sua vez! Escolha uma célula.</div>
+
+    <div class="tabuleiro-velha" id="tabuleiro">
+      <div class="celula" data-i="0"></div>
+      <div class="celula" data-i="1"></div>
+      <div class="celula" data-i="2"></div>
+      <div class="celula" data-i="3"></div>
+      <div class="celula" data-i="4"></div>
+      <div class="celula" data-i="5"></div>
+      <div class="celula" data-i="6"></div>
+      <div class="celula" data-i="7"></div>
+      <div class="celula" data-i="8"></div>
+    </div>
+
+    <div class="btns-velha">
+      <button class="btn-velha btn-velha-reiniciar" onclick="reiniciar()">Nova Rodada</button>
+      <button class="btn-velha btn-velha-zerar" onclick="zerarPlacar()">Zerar Placar</button>
+    </div>
+  </div>
+
+  <script src="script.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"
+    integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI"
+    crossorigin="anonymous"></script>
+  <script src="https://kit.fontawesome.com/029c74db66.js" crossorigin="anonymous"></script>
+</body>
+
+</html>

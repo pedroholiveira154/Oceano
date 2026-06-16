@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Jogo da Forca — Oceano</title>
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous" />
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+    <!-- ── CAMADAS DE FUNDO ──────────────────────────────── -->
+    <div id="particles-container"></div>
+    <div id="bubbles-container"></div>
+    <div id="fish-container"></div>
+
+    <!-- ════════════════════════════════════════════════════
+         NAVBAR — fundo já sólido nesta página (inline style
+         mantido para preservar o comportamento original).
+    ════════════════════════════════════════════════════ -->
+    <!-- <nav id="navbar"
+        style="background: rgba(3,4,94,0.85); backdrop-filter: blur(10px); border-bottom: 1px solid rgba(144,224,239,0.2);">
+        <div class="navbar-inner">
+            <a class="nav-logo" href="#"><i class="fa-solid fa-water" style="margin-right: 3px;"></i>OCEANO</a>
+
+            <button class="nav-toggler" id="navToggler" aria-label="Abrir menu" aria-expanded="false">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+
+            <div class="nav-collapse" id="navCollapse">
+                <ul class="nav-menu">
+                    <li><a class="nav-link-custom" href="index.html">← Voltar para Home</a></li>
+                </ul>
+            </div>
+        </div>
+    </nav> -->
+
+    <nav class="navbar navbar-expand-md navbar-dark position-fixed top-0 w-100" id="navbar"
+        style="background:rgba(3,4,94,0.85)!important;backdrop-filter:blur(10px);border-bottom:1px solid rgba(144,224,239,0.2);">
+        <div class="container">
+            <a class="nav-logo" href="index.html"><i class="fa-solid fa-water" style="margin-right: 3px;"></i>OCEANO</a>
+            <button class="navbar-toggler border-0" type="button" data-bs-toggle="collapse" data-bs-target="#navMenu"
+                aria-controls="navMenu" aria-expanded="false">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse justify-content-end" id="navMenu">
+                <ul class="navbar-nav gap-3">
+                    <li class="nav-item">
+                        <a class="nav-link nav-link-custom" href="index.html">← Voltar para Home</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+    <!-- ════════════════════════════════════════════════════
+         SEÇÃO PRINCIPAL
+         Não usa id="titulo" para não conflitar com o JS
+         do efeito onda (que espera esse id no index).
+    ════════════════════════════════════════════════════ -->
+    <section class="pagina-forca">
+        <div class="container">
+
+            <p class="section-label">// Jogo da Forca</p>
+            <h1 class="titulo-forca">Descubra a Palavra!</h1>
+            <p class="hero-sub mx-auto">Adivinhe a palavra letra por letra antes de ser enforcado</p>
+
+            <!-- STATUS: acertos e placar -->
+            <div class="forca-status">
+                <div class="forca-badge" id="acerto">ACERTOS: 0</div>
+                <div class="forca-badge" id="palcerta">
+                    CERTAS: 0 &nbsp;|&nbsp; ERRADAS: 0
+                </div>
+            </div>
+
+            <!-- CARD PRINCIPAL -->
+            <div class="forca-card">
+
+                <!-- Imagem da forca -->
+                <div id="forca">
+                    <img src="img-forca/forca1.png" alt="forca" id="imagem">
+                </div>
+
+                <!-- Tema -->
+                <div id="tema">TEMA: —</div>
+
+                <!-- Inputs gerados pelo JS -->
+                <div id="tentativa">
+                    <form id="tenta"></form>
+                </div>
+
+                <!-- Teclado -->
+                <div id="letras">
+                    <div class="linha-teclado">
+                        <button type="button" id="Q" onmousedown="confere('Q')" onmouseup="acabou()">Q</button>
+                        <button type="button" id="W" onmousedown="confere('W')" onmouseup="acabou()">W</button>
+                        <button type="button" id="E" onmousedown="confere('E')" onmouseup="acabou()">E</button>
+                        <button type="button" id="R" onmousedown="confere('R')" onmouseup="acabou()">R</button>
+                        <button type="button" id="T" onmousedown="confere('T')" onmouseup="acabou()">T</button>
+                        <button type="button" id="Y" onmousedown="confere('Y')" onmouseup="acabou()">Y</button>
+                        <button type="button" id="U" onmousedown="confere('U')" onmouseup="acabou()">U</button>
+                        <button type="button" id="I" onmousedown="confere('I')" onmouseup="acabou()">I</button>
+                        <button type="button" id="O" onmousedown="confere('O')" onmouseup="acabou()">O</button>
+                        <button type="button" id="P" onmousedown="confere('P')" onmouseup="acabou()">P</button>
+                    </div>
+                    <div class="linha-teclado">
+                        <button type="button" id="A" onmousedown="confere('A')" onmouseup="acabou()">A</button>
+                        <button type="button" id="S" onmousedown="confere('S')" onmouseup="acabou()">S</button>
+                        <button type="button" id="D" onmousedown="confere('D')" onmouseup="acabou()">D</button>
+                        <button type="button" id="F" onmousedown="confere('F')" onmouseup="acabou()">F</button>
+                        <button type="button" id="G" onmousedown="confere('G')" onmouseup="acabou()">G</button>
+                        <button type="button" id="H" onmousedown="confere('H')" onmouseup="acabou()">H</button>
+                        <button type="button" id="J" onmousedown="confere('J')" onmouseup="acabou()">J</button>
+                        <button type="button" id="K" onmousedown="confere('K')" onmouseup="acabou()">K</button>
+                        <button type="button" id="L" onmousedown="confere('L')" onmouseup="acabou()">L</button>
+                    </div>
+                    <div class="linha-teclado">
+                        <button type="button" id="Z" onmousedown="confere('Z')" onmouseup="acabou()">Z</button>
+                        <button type="button" id="X" onmousedown="confere('X')" onmouseup="acabou()">X</button>
+                        <button type="button" id="C" onmousedown="confere('C')" onmouseup="acabou()">C</button>
+                        <button type="button" id="V" onmousedown="confere('V')" onmouseup="acabou()">V</button>
+                        <button type="button" id="B" onmousedown="confere('B')" onmouseup="acabou()">B</button>
+                        <button type="button" id="N" onmousedown="confere('N')" onmouseup="acabou()">N</button>
+                        <button type="button" id="M" onmousedown="confere('M')" onmouseup="acabou()">M</button>
+                        <button type="button" id="-" onmousedown="confere('-')" onmouseup="acabou()">-</button>
+                    </div>
+                </div>
+
+            </div>
+            <!-- fim .forca-card -->
+
+        </div>
+    </section>
+
+    <!-- Áudio -->
+    <audio id="som-bolhas" loop>
+        <source
+            src="audio/malvarrosadesigns-muffled-and-relaxing-sound-of-bubbles-rising-slowly-in-water-loop-492207.mp3"
+            type="audio/mpeg">
+    </audio>
+
+    <script src="script.js"></script>
+
+    <!--
+        sorteia() chamado APÓS o script.js carregar — mais seguro que
+        onload no body. Todas as funções já existem quando é executada.
+    -->
+    <script>
+        sorteia();
+
+        // /* Hambúrguer sem Bootstrap JS */
+        // const toggler = document.getElementById('navToggler');
+        // const collapse = document.getElementById('navCollapse');
+        // toggler.addEventListener('click', () => {
+        //     const aberto = collapse.classList.toggle('aberto');
+        //     toggler.setAttribute('aria-expanded', aberto);
+        // });
+    </script>
+    <script src="https://kit.fontawesome.com/029c74db66.js" crossorigin="anonymous"></script>
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI"
+        crossorigin="anonymous"></script>
+</body>
+
+</html>

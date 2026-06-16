@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Abismo</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+    <!-- ── CAMADAS DE FUNDO ──────────────────────────────── -->
+    <div id="particles-container"></div>
+    <div id="bubbles-container"></div>
+    <div id="fish-container"></div>
+
+    <!-- ════════════════════════════════════════════════════
+         NAVBAR
+         position: fixed + width: 100% → definidos no CSS.
+         JS adiciona .scrolled ao rolar para dar fundo.
+    ════════════════════════════════════════════════════ -->
+    <nav id="navbar">
+        <div class="navbar-inner">
+            <a class="nav-logo" href="#"><i class="fa-solid fa-water" style="margin-right: 3px;"></i>OCEANO</a>
+
+            <!-- Hambúrguer (visível apenas em mobile) -->
+            <button class="nav-toggler" id="navToggler" aria-label="Abrir menu" aria-expanded="false">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+
+            <!-- Menu — em mobile fica dentro de .nav-collapse -->
+            <div class="nav-collapse" id="navCollapse">
+                <ul class="nav-menu">
+                    <li><a class="nav-link-custom" href="index.html">Os Jogos</a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- ════════════════════════════════════════════════════
+         HERO
+         min-height: 100vh + flex definidos no CSS (.hero).
+    ════════════════════════════════════════════════════ -->
+    <section class="hero">
+        <p class="hero-eyebrow">— Bem-vindo às profundezas do —</p>
+        <h1 id="titulo">OCEANO</h1>
+        <p class="hero-sub">
+            Mergulhe em uma aventura submarina inesquecível.<br>
+            Explore o fundo do mar, descubra criaturas e conquiste o abismo.
+        </p>
+        <a href="#jogos" class="btn-mergulhar">Mergulhar</a>
+
+        <!--
+            scroll-hint com position: absolute dentro da section
+            (position: relative no CSS) → funciona corretamente.
+        -->
+        <div class="scroll-hint">
+            <span>role para baixo</span>
+            <div class="scroll-arrow"></div>
+        </div>
+    </section>
+
+    <!-- ════════════════════════════════════════════════════
+         SEÇÃO: OS JOGOS
+         .container limita a largura.
+         .cards-grid é um CSS Grid nativo (3 cols → 2 → 1).
+    ════════════════════════════════════════════════════ -->
+    <section class="jogos-section" id="jogos">
+        <div class="container">
+
+            <div class="section-header">
+                <p class="section-label">// Os jogos</p>
+                <h2 class="section-title">Explore as profundezas do oceano</h2>
+            </div>
+
+            <div class="cards-grid">
+
+                <div class="card">
+                    <div class="card-icon"><i class="fa-solid fa-shuffle"></i></div>
+                    <h3>Troca Palavras</h3>
+                    <p>Troque o nome dos peixes trocando as palavras nessa brincadeira que veio do fundo do mar!</p>
+                    <!-- CORRIGIDO: era "trocapalavras.html", nome real é "troca-palavras.html" -->
+                    <a href="troca-palavras.html" class="card-link">Jogue agora →</a>
+                </div>
+
+                <div class="card">
+                    <div class="card-icon"><i class="fa-solid fa-hashtag"></i></div>
+                    <h3>Jogo da Velha</h3>
+                    <p>Consegue vencer a orca nesse jogo de estratégia clássico? No fundo do oceano, é claro!</p>
+                    <a href="jogo-velha.html" class="card-link">Jogue agora →</a>
+                </div>
+
+                <div class="card">
+                    <div class="card-icon"><img src="img/shark-icon.png" alt=""></div>
+                    <h3>Jogo da Forca</h3>
+                    <p>Consegue acertar a palavra e evitar ser enforcado? Ou sufocado? Quem sabe? No mar tudo pode!</p>
+                    <!-- CORRIGIDO: era "jogoForca.html", nome real é "jogo-forca.html" -->
+                    <a href="jogo-forca.html" class="card-link">Jogue agora →</a>
+                </div>
+
+                <div class="card">
+                    <div class="card-icon"><i class="fa-solid fa-fish-fins"></i></div>
+                    <h3>Seleção de Peixes</h3>
+                    <p>Navegue pelo oceano e escolha seu peixe favorito com dados reais via API!</p>
+                    <a href="peixes.html" class="card-link">Explorar →</a>
+                </div>
+
+                <div class="card">
+                    <div class="card-icon"><i class="fa-solid fa-dna"></i></div>
+                    <h3>Ocean Clicker</h3>
+                    <p>Faça o oceano ter vida nesse jogo clicker!</p>
+                    <a href="ocean-clicker.html" class="card-link">Explorar →</a>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- ════════════════════════════════════════════════════
+         FOOTER
+    ════════════════════════════════════════════════════ -->
+    <footer>
+        <span class="logo-footer">OCEANO</span>
+        <p>Desenvolvido por Pedro Henrique com HTML, CSS, JAVASCRIPT, JSON e IA | Projeto Escolar 2026</p>
+    </footer>
+
+    <!-- Áudio de fundo -->
+    <audio id="som-bolhas" loop>
+        <source
+            src="audio/malvarrosadesigns-muffled-and-relaxing-sound-of-bubbles-rising-slowly-in-water-loop-492207.mp3"
+            type="audio/mpeg">
+    </audio>
+
+    <script src="script.js"></script>
+
+    <!-- Hambúrguer: toggle do menu mobile sem precisar do Bootstrap JS
+    <script>
+        const toggler  = document.getElementById('navToggler');
+        const collapse = document.getElementById('navCollapse');
+
+        toggler.addEventListener('click', () => {
+            const aberto = collapse.classList.toggle('aberto');
+            toggler.setAttribute('aria-expanded', aberto);
+        });
+    </script> -->
+    <script src="https://kit.fontawesome.com/029c74db66.js" crossorigin="anonymous"></script>
+</body>
+
+</html>

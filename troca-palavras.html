@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Troca Palavras</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous" />
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+    <!-- ── CAMADAS DE FUNDO ──────────────────────────────── -->
+    <div id="particles-container"></div>
+    <div id="bubbles-container"></div>
+    <div id="fish-container"></div>
+
+    <!-- ════════════════════════════════════════════════════
+         NAVBAR
+         CORREÇÃO: antes o <div class="collapse"> estava
+         FORA do <nav>, quebrado. Agora está dentro.
+    ════════════════════════════════════════════════════ -->
+    <nav class="navbar navbar-expand-md navbar-dark position-fixed top-0 w-100" id="navbar"
+        style="background:rgba(3,4,94,0.85)!important;backdrop-filter:blur(10px);border-bottom:1px solid rgba(144,224,239,0.2);">
+        <div class="container">
+            <a class="nav-logo" href="index.html"><i class="fa-solid fa-water" style="margin-right: 3px;"></i>OCEANO</a>
+            <button class="navbar-toggler border-0" type="button" data-bs-toggle="collapse" data-bs-target="#navMenu"
+                aria-controls="navMenu" aria-expanded="false">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse justify-content-end" id="navMenu">
+                <ul class="navbar-nav gap-3">
+                    <li class="nav-item">
+                        <a class="nav-link nav-link-custom" href="index.html">← Voltar para Home</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- ════════════════════════════════════════════════════
+         SEÇÃO PRINCIPAL
+    ════════════════════════════════════════════════════ -->
+    <section class="pagina-jogo">
+        <div class="container">
+
+            <p class="section-label">// Troca Palavras</p>
+            <h1 id="titulo-jogo">Bem-vindo ao Troca Palavras dos Oceanos!</h1>
+            <p class="hero-sub mx-auto">Digite uma palavra substituta e veja a frase mudar!</p>
+
+            <!-- Frases em cards (CSS Grid 2 colunas → 1 em mobile) -->
+            <div class="frases-grid">
+                <div class="card-trocar">
+                    <p>O <span class="trocar">Polvo</span> tem três corações e oito tentáculos.</p>
+                </div>
+                <div class="card-trocar">
+                    <p>A Tartaruga <span class="trocar">Marinha</span> consegue viver até 100 anos!</p>
+                </div>
+                <div class="card-trocar">
+                    <p>O Tubarão <span class="trocar">Martelo</span> é conhecido por sua cara achatada.</p>
+                </div>
+                <div class="card-trocar">
+                    <p>A Baleia <span class="trocar">Cachalote</span> é extremamente amigável com os humanos.</p>
+                </div>
+            </div>
+
+            <!-- Input e botão -->
+            <input type="text" class="input-substituicao" id="substituicao" placeholder="Digite uma palavra">
+            <button class="btn-jogar" onclick="trocarPalavra()">Trocar a palavra</button>
+
+        </div>
+    </section>
+
+    <!-- Áudio -->
+    <audio id="som-bolhas" loop>
+        <source
+            src="audio/malvarrosadesigns-muffled-and-relaxing-sound-of-bubbles-rising-slowly-in-water-loop-492207.mp3"
+            type="audio/mpeg">
+    </audio>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI"
+        crossorigin="anonymous"></script>
+    <script src="script.js"></script>
+    <script>
+        const tituloJogo = document.getElementById('titulo-jogo');
+        tituloJogo.style.fontSize = 'clamp(1rem, 3vw, 2.8rem)';
+
+        /* Aplica tamanho de fonte nos parágrafos dos cards */
+        document.querySelectorAll('.card-trocar p').forEach(p => {
+            p.style.fontSize = '1.25rem';
+        });
+    </script>
+    <script src="https://kit.fontawesome.com/029c74db66.js" crossorigin="anonymous"></script>
+</body>
+
+</html>
